@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Module id="modelio-meta-generator" class="org.modeliosoft.modelio.metagenerator.impl.MetaGeneratorModule" binaryversion="3.4.1" version="1.0.01" schema-level="2" uid="cda6212c-21db-495e-93dd-7f159c2d618f" author="Softeam" image="" url="">
+    <ClassPath>
+        <PathEntry path="lib/modelio-meta-generator-1.0.01.jar"/>
+    </ClassPath>
+    <Gui>
+        <Commands>
+            <Command id="GenerateMetamodelLibrary" label="%command.GenerateMetamodelLibrary.label" tooltip="%command.GenerateMetamodelLibrary.tooltip" image="" modify-model="true">
+                <Scope metaclass="ModelElement" stereotype=""/>
+                <Handler class="org.modeliosoft.modelio.metagenerator.handlers.commands.GenerateMetamodelLibraryHandler">
+                    <HParameter name="name" value=""/>
+                    <HParameter name="pattern_path" value="res/generated/patterns/BaseCode.umlt"/>
+                    <HParameter name="pattern_name" value="BaseCode"/>
+                </Handler>
+            </Command>
+        </Commands>
+        <ContextualMenu>
+            <CommandRef refid="GenerateMetamodelLibrary" group="" group-image=""/>
+        </ContextualMenu>
+    </Gui>
+</Module>

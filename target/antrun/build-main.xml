@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="maven-antrun-" default="main"  >
+<target name="main">
+  <move file="C:\Users\aabherve\Documents\GitHub\modelio-meta-generator/target/modelio-meta-generator_1.0.01.zip" tofile="C:\Users\aabherve\Documents\GitHub\modelio-meta-generator/target/modelio-meta-generator_1.0.01.jmdac"/>
+</target>
+</project>

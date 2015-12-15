@@ -186,8 +186,8 @@ public class MGenerator {
                     + ".exml\",this.mClass.get(\""
                     + idtarget
                     + "\"),"
-                    + mEnd.getMultiplicityMax().equals("1")
-                    + ",false,false,"
+                    + !mEnd.getMultiplicityMax().equals("1")
+                    + ",true,true,"
                     + mEnd.getAggregation().equals(
                             AggregationKind.KINDISCOMPOSITION) + ");\n");
             result.append("this.mClass.get(\"" + mEnd.getOwner().getName()
