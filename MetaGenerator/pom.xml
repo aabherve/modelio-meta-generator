@@ -4,9 +4,9 @@
 
   <!-- definition -->
   <groupId>org.modeliosoft.modelio</groupId>
-  <artifactId>modelio-meta-generator</artifactId>
-  <version>1.0.01</version>
-  <name>modelio-meta-generator</name>
+  <artifactId>metagenerator</artifactId>
+  <version>1.0.00</version>
+  <name>MetaGenerator</name>
   <repositories>
       <repository>
           <id>modelio</id>

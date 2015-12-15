@@ -26,9 +26,9 @@ public class MGenerator {
     @objid ("3809faf8-fd1c-4304-9ec7-2ee05972ab08")
     public StringBuffer generateElements() {
         StringBuffer result = new StringBuffer();
-
+        
         result.append("// ########### Package / Class / Attributs ###########\n\n");
-
+        
         for (ModelTree sub : metamodelRoot.getOwnedElement()) {
             if (sub instanceof Package) {
                 result.append(createPackage((Package) sub));
@@ -41,7 +41,7 @@ public class MGenerator {
     public StringBuffer generateDependencys() {
         StringBuffer result = new StringBuffer();
         result.append("\n\n\n // ########### Dependencies ###########\n\n");
-
+        
         for (AssociationEnd end : getDependency()) {
             result.append(createDependency(end));
         }
@@ -63,14 +63,14 @@ public class MGenerator {
     @objid ("a7c8cadf-13c3-4b4c-b938-50f50c442396")
     public StringBuffer createPackage(Package mPackage) {
         StringBuffer result = new StringBuffer();
-
+        
         result.append("//##### Package " + mPackage.getName() + "#####\n");
-
+        
         result.append("MPackage " + IdGenerator.createId(mPackage)
                 + " = new MPackage(\"" + mPackage.getUuid().toString()
                 + "\",\"" + mPackage.getName() + "\",\""
                 + mPackage.getUuid().toString() + ".exml\");\n");
-
+        
         if (mPackage.getOwner().equals(this.metamodelRoot)) {
             result.append("this.mPackages.add("
                     + IdGenerator.createId(mPackage) + ");\n");
@@ -79,19 +79,19 @@ public class MGenerator {
                     + ".getMPackages().add(" + IdGenerator.createId(mPackage)
                     + ");\n");
         }
-
+        
         for (ModelTree sub : mPackage.getOwnedElement()) {
             if (sub instanceof Package) {
                 result.append(createPackage((Package) sub));
             }
         }
-
+        
         for (ModelTree sub : mPackage.getOwnedElement()) {
             if (sub instanceof Class) {
                 result.append(createClass((Class) sub));
             }
         }
-
+        
         result.append("\n");
         result.append("\n");
         return result;
@@ -100,23 +100,23 @@ public class MGenerator {
     @objid ("43f3d6bc-8505-42b4-a8dc-a0b3e0c5d31f")
     public StringBuffer createClass(Class mClass) {
         StringBuffer result = new StringBuffer();
-
+        
         result.append("//## class " + mClass.getName() + " ##\n\n");
-
+        
         result.append("MClass " + IdGenerator.createId(mClass)
                 + " = new MClass(\"" + mClass.getUuid().toString() + "\",\""
                 + mClass.getName() + "\",\"" + mClass.getUuid().toString()
                 + ".exml\");\n");
-
+        
         result.append(IdGenerator.createId(mClass.getOwner())
                 + ".getMClass().add(" + IdGenerator.createId(mClass) + ");\n");
         result.append("this.mClass.put(\"" + mClass.getName() + "\","
                 + IdGenerator.createId(mClass) + ");\n");
-
+        
         for (Attribute attr : mClass.getOwnedAttribute()) {
             result.append(createAttribute(attr));
         }
-
+        
         result.append("\n");
         return result;
     }
@@ -124,7 +124,7 @@ public class MGenerator {
     @objid ("51bf6403-ae7a-4d66-8fab-a21479c3fa5a")
     public StringBuffer createAttribute(Attribute mAttr) {
         StringBuffer result = new StringBuffer();
-
+        
         result.append("// attribute " + mAttr.getName() + "\n\n");
         result.append("MAttribute " + IdGenerator.createId(mAttr)
                 + " = new MAttribute(\"" + mAttr.getUuid().toString() + "\",\""
@@ -135,7 +135,7 @@ public class MGenerator {
         result.append(IdGenerator.createId(mAttr.getOwner())
                 + ".getMAttributes().add(" + IdGenerator.createId(mAttr)
                 + ");\n");
-
+        
         result.append("\n");
         result.append("\n");
         return result;
@@ -144,15 +144,15 @@ public class MGenerator {
     @objid ("b22aac11-8e7e-4143-9087-95d3e7961e4b")
     private StringBuffer createGeneralization(Class mClass) {
         StringBuffer result = new StringBuffer();
-
+        
         result.append("\n// Generalization : class " + mClass.getName() + "\n");
-
+        
         for (Generalization gen : mClass.getParent()) {
             result.append("this.mClass.get(\"" + mClass.getName()
                     + "\").getMSuperType().add(this.mClass.get(\""
                     + gen.getSuperType().getName() + "\"));\n");
         }
-
+        
         for (Generalization gen : mClass.getSpecialization()) {
             result.append("this.mClass.get(\"" + mClass.getName()
                     + "\").getMSubTypes().add(this.mClass.get(\""
@@ -166,14 +166,14 @@ public class MGenerator {
         StringBuffer result = new StringBuffer();
         result.append("\n// dependency " + mEnd.getOwner().getName() + "."
                 + mEnd.getName() + "\n");
-
+        
         String idtarget = null;
         if (mEnd.getOpposite() != null) {
             idtarget = mEnd.getOpposite().getOwner().getName();
         } else if (mEnd.getOppositeOwner() != null) {
             idtarget = mEnd.getOppositeOwner().getOwner().getName();
         }
-
+        
         if (idtarget != null) {
             result.append("MDependency "
                     + IdGenerator.createId(mEnd)
@@ -235,7 +235,7 @@ public class MGenerator {
     public StringBuffer generateEnums() {
         StringBuffer result = new StringBuffer();
         result.append("\n\n\n // ########### Enums ###########\n\n");
-
+        
         for (Enumeration enums : getEnumerations()) {
             result.append(createEnumerations(enums));
         }
@@ -247,18 +247,18 @@ public class MGenerator {
         StringBuffer result = new StringBuffer();
         result.append("this.mBaseTypes.put(\"");
         result.append(enums.getName());
-        result.append("\", new MEnum(\"");
+        result.append(", new MEnum(\"");
         result.append(enums.getUuid().toString());
         result.append("\",\"");
         result.append(enums.getName());
-        result.append("\",\"enum\",java.util.Arrays.asList(");
+        result.append("\",\"enum\",Arrays.asList(");
         for(EnumerationLiteral literal : enums.getValue()){
             result.append("\"" + literal.getName() +"\"");
             if(enums.getValue().indexOf(literal)  != enums.getValue().size() -1){
                 result.append(",");
             }
         }
-        result.append(")));\n");
+        result.append(")));");
         return result;
     }
 
